@@ -1,8 +1,30 @@
+var dbfile = "db.json";
+var fs = require('fs');
 var data = {
   nrofusers: 0,
   msgs: [],
   users: {}
 }
+
+function save() {
+  fs.writeFile(dbfile, JSON.stringify(data));
+}
+
+function load() {
+  try {
+
+  if (fs.lstatSync(dbfile).isFile()) {
+    var string = fs.readFileSync(dbfile, 'utf8');
+    if (string) {
+      data = JSON.parse(string);
+    }
+  }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+load();
 
 exports.getUser = function(name) {
   return data.users[name];
@@ -31,6 +53,7 @@ exports.addMessage = function(msg) {
   data.msgs.push(msg);
   from.msgs.push(msg.id);
   to.msgs.push(msg.id);
+  save();
   return true;
 }
 
