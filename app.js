@@ -6,10 +6,18 @@
 var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
+  , login = require('./routes/login')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , app = express()
+  , server = http.createServer(app)
+  , connect = require('express/node_modules/connect')
+  , sessionStore = new connect.middleware.session.MemoryStore
+  , cookieParser = express.cookieParser('fout secret here');
 
-var app = express();
+// Global variables  
+sockets = require("./sockets").listen(server, cookieParser, sessionStore);
+
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3003);
@@ -19,20 +27,21 @@ app.configure(function(){
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(express.cookieParser('fout secret here'));
-  app.use(express.session());
-  app.use(app.router);
+  app.use(cookieParser);
+  app.use(express.session({store: sessionStore}));
   app.use(express.static(path.join(__dirname, 'public')));
+  app.use(login.requireAuthentication);
+  app.use(app.router);
 });
 
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+app.all('/login', login.index);
 app.get('/', routes.index);
 app.get('/wall', require('./routes/wall').index);
-app.get('/users', user.list);
 
-http.createServer(app).listen(app.get('port'), function(){
+server.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });

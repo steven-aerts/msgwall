@@ -1,5 +1,60 @@
-extends layout
+extends headers
 
-block content
-  h1= title
-  p Welcome to #{title}
+block body
+  #msgpane
+    #newmessage
+      h1 Nieuw Bericht
+      form
+        p
+          label Aan:
+          select(name='to',id='to')
+            each user,_ in users
+              option= user.name
+        p
+          textarea(name='message',id='message')
+        p
+          button(name='send') verstuur
+
+    h1 Je Berichten
+    #msgs
+
+  script
+    var socket = io.connect();
+    var myname = $("#username").text();
+
+    $("#newmessage form").submit(function() {
+      var to = $("#to").val()
+        , message = $("#message").val();
+      if(to.length * message.length != 0) {
+        socket.emit("message", {to:to, message:message});
+        $("#to").val("");
+        $("#message").val("");
+      }
+      return false;
+    });
+
+    socket.on("message", function(data) {
+      var content = $("<div class='msg'/>");
+      var klass;
+      var address;
+      if (myname == data.from) {
+        klass = "send";
+        address = "Aan " + data.to + ":";
+      } else {
+        klass = "received";
+        address = "Van " + data.from + ":";
+      }
+      content.addClass(klass)
+        .text(data.message)
+        .prepend($("<div class='address'/>").text(address));
+      $("#msgs").prepend(content);
+    });
+
+    socket.on("newuser", function(data) {
+      $("#to").append($("<option/>").text(data));
+    });
+
+    $("#newmessage h1").on("click", function() {
+      $("#newmessage form").toggleClass("hide");
+    });
+    $("#newmessage form").toggleClass("hide");

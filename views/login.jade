@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1 Login
+  p Hallo onbekende, welkom op de Foute Fuif.  Wie ben je?
+  form(method='post', action='/login')
+    p
+      label Je foute naam
+      input(type='text',name='user',value='#{username}')
+    p
+      label Een wachtwoordje
+      input(type='password',name='password')
+    p
+      input(type='submit', name='submit')

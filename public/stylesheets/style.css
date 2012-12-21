@@ -1,6 +1,52 @@
 body {
   background-color:black;
-  color: #F6F6F7;
+  color: #8C8D91;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+h1 {
+  color: #054985;
+  font: bold 16px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+#msgpane {
+  width: 25em;
+  float: left;
+}
+
+#msgpane textarea{
+  width: 23em;
+  margin: 0 1em;
+}
+ 
+.msg {
+  padding: .5em;
+  white-space: pre;
+}
+
+.msg .address, #username {
+  color: #054985;
+}
+
+.msg.send {
+  text-align:right;
+}
+
+#newmessage h1 {
+  cursor:pointer;
+  text-decoration: underline;
+}
+
+.hide {
+  display:none;
+}
+
+.chord path {
+  fill-opacity: .40;
+  stroke: #0f0;
+  stroke-width: 1px;
+  fill: #0f0;
+}
+.ring path {
+  stroke-width: 1px;
+}
