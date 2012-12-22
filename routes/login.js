@@ -54,6 +54,12 @@ exports.requireAuthentication = function(req, res, next){
   next();
 };
 
+exports.logout = function(req, res, next) {
+  req.session.destroy();
+  delete req.user;
+  res.redirect('/');
+};
+
 function passCrypt(user, pass) {
   var shasum = crypto.createHash('sha1');
   shasum.update("foute fuif");

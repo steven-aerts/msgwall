@@ -24,7 +24,7 @@ h1 {
   white-space: pre;
 }
 
-.msg .address, #username {
+.msg .address, #username, a {
   color: #054985;
 }
 
