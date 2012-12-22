@@ -94,14 +94,14 @@ function wall(el) {
     textpaths.transition().attr("d", textPath);
     textpaths.enter().append("path")
       .attr("id", function(d) {return "segment-" + d.index;})
-      .attr("text-anchor", "middle")
       .attr("d", textPath);
 
     var labels = labelgroup.selectAll("text").data(chord.groups, function(d) {return d.index;});
     labels.enter().append("text")
-      .attr("x", 6)
-        .attr("dy", 15)
+      .attr("text-anchor", "middle")
+      .attr("dy", 15)
       .append("svg:textPath")
+      .attr("startOffset", "50%")
       .attr("xlink:href", function(d) { return "#segment-" + d.index; })
       .text(function(d) { return keys[d.index]; });
   }
