@@ -43,10 +43,11 @@ h1 {
 
 .chord path {
   fill-opacity: .40;
-  stroke: #0f0;
   stroke-width: 1px;
-  fill: #0f0;
 }
 .ring path {
   stroke-width: 1px;
+}
+.label path {
+  fill: none;
 }

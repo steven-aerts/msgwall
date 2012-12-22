@@ -83,8 +83,19 @@ function wall(el) {
     segments.enter().append("path")
       .style("fill", function(d) { return fill(d.index); })
       .style("stroke", function(d) { return fill(d.index); })
-      .attr("id", function(d) {return "segment-" + d.index;})
       .attr("d", d3.svg.arc().innerRadius(innerRadius).outerRadius(outerRadius));
+
+    var textArc = d3.svg.arc().outerRadius(outerRadius);
+    var textPath =  function() {
+        var string = textArc.apply(this,arguments);
+        return string.substr(0, string.length - 5);
+      }
+    var textpaths = labelgroup.selectAll("path").data(chord.groups, function(d) {return d.index;});
+    textpaths.transition().attr("d", textPath);
+    textpaths.enter().append("path")
+      .attr("id", function(d) {return "segment-" + d.index;})
+      .attr("text-anchor", "middle")
+      .attr("d", textPath);
 
     var labels = labelgroup.selectAll("text").data(chord.groups, function(d) {return d.index;});
     labels.enter().append("text")
