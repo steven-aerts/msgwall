@@ -24,6 +24,8 @@ exports.listen = function(server, cookieParser, sessionStore) {
     });
   });
 
+  var stats = io.of("/stats");
+
   io.sockets.on("connection", function(socket) {
     var user = db.getUser(socket.handshake.session.user);
     var arr = userSockets[user.name] = userSockets[user.name] || [];
@@ -41,6 +43,7 @@ exports.listen = function(server, cookieParser, sessionStore) {
           }
         }
         socket.emit('message', msg);
+        updateStats();
       }
     });
 
@@ -50,9 +53,22 @@ exports.listen = function(server, cookieParser, sessionStore) {
       arr.splice(pos,1);
     });
   });
+
+  function updateStats() {
+    var data = db.getStatistics();
+    if (data) {
+      stats.volatile.emit("update", data);
+    }
+  }
+
+  stats.on('connection', function (socket) {
+    updateStats();
+  });
+
   return {
     newUser: function(username) {
       io.sockets.emit("newuser",username);
+      updateStats();
     }
   };
 };

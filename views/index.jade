@@ -17,6 +17,8 @@ block body
 
     h1 Je Berichten
     #msgs
+  #graph
+    h1 Toon Activiteit
 
   script
     var socket = io.connect();
@@ -58,3 +60,8 @@ block body
       $("#newmessage form").toggleClass("hide");
     });
     $("#newmessage form").toggleClass("hide");
+
+    $("#graph h1").on("click", function() {
+      wall($("#graph")[0]);
+      $(this).toggleClass("hide");
+    });

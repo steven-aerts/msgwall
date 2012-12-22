@@ -65,3 +65,26 @@ exports.userHistory = function(user, callback) {
     callback(data.msgs[user.msgs[i]]);
   }
 }
+
+exports.getStatistics = function() {
+  var stats = [];
+  var msgs = data.msgs;
+  var users = data.users;
+
+  if (0 === msgs.length) {
+    return null;
+  }
+
+  for (var user in users) {
+    stats.push({name: user, msgs: {}});
+  }
+  stats.sort(function(a,b) { return users[a.name].id - users[b.name].id;});
+
+  for (var i = 0; i < msgs.length; ++i) {
+    var msg = msgs[i];
+    var umsgs = stats[users[msg.from].id].msgs;
+    umsgs[msg.to] = umsgs[msg.to] ? umsgs[msg.to] + 1 : 1;
+  }
+  
+  return stats;
+}
