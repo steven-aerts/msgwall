@@ -51,18 +51,19 @@ exports.addMessage = function(msg) {
   }
   msg.id = data.msgs.length;
   data.msgs.push(msg);
-  from.msgs.push(msg.id);
-  to.msgs.push(msg.id);
   save();
   return true;
 }
 
 exports.userHistory = function(user, callback) {
-  if (typeof user === "string") {
-    user = exports.getUser(user);
+  if (typeof user !== "string") {
+    user = user.name;
   }
-  for (var i = 0; i < user.msgs.length; ++i) {
-    callback(data.msgs[user.msgs[i]]);
+  for (var i = 0; i < data.msgs.length; ++i) {
+    var msg = data.msgs[i];
+    if(msg.to === user || msg.from === user) {
+      callback(msg);
+    }
   }
 }
 
