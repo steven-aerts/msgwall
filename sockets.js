@@ -42,7 +42,9 @@ exports.listen = function(server, cookieParser, sessionStore) {
             receivers[i].emit('message', msg);
           }
         }
-        socket.emit('message', msg);
+        if (msg.to !== msg.from) {
+          socket.emit('message', msg);
+        }
         updateStats();
       }
     });
