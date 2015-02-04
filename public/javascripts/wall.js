@@ -15,8 +15,8 @@ function wall(el) {
     return matrix;
   };
 
-  var width = 960,
-      height = 500,
+  var width = 860,
+      height = 700,
       innerRadius = Math.min(width, height) * 0.41,
       outerRadius = innerRadius * 1.1,
       circularPadding = Math.PI / 4;

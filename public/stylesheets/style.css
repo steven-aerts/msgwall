@@ -1,6 +1,6 @@
 body {
   background-color:black;
-  color: #8C8D91;
+  color: white;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -22,10 +22,16 @@ h1 {
 .msg {
   padding: .5em;
   white-space: pre;
+  font-size: 32px;
 }
 
-.msg .address, #username, a {
+#username, a {
   color: #054985;
+}
+
+.msg .address{
+  font-size: 16px;
+  color: white;
 }
 
 .msg.send {
