@@ -26,6 +26,8 @@ function load() {
 
 load();
 
+exports.IEDEREEN = "Iedereen";
+
 exports.getUser = function(name) {
   return data.users[name];
 }
@@ -61,7 +63,7 @@ exports.userHistory = function(user, callback) {
   }
   for (var i = 0; i < data.msgs.length; ++i) {
     var msg = data.msgs[i];
-    if(msg.to === user || msg.from === user) {
+    if(msg.to === user || msg.from === user || msg.to === exports.IEDEREEN) {
       callback(msg);
     }
   }

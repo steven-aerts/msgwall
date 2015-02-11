@@ -41,6 +41,8 @@ Hoe gebruiken
 Voor gebruikers: http://127.0.0.1:3003/ (127.0.0.1 moet natuurlijk het ip-adres van laptop zijn)
 Voor de muur zelf had ik een apparte gebruiker "de muur" genaamd die je kan gebruiken om te projecteren.
 
+Als je de gebruiker genaamd "Iedereen" (case sensitive) aanmaakt, dan kan men deze gebruiker gebruiken broadcast messages versturen.
+
 Tips:
 -----
 

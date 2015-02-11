@@ -36,14 +36,18 @@ exports.listen = function(server, cookieParser, sessionStore) {
     socket.on('message', function(msg) {
       msg.from = user.name;
       if (db.addMessage(msg)) {
-        var receivers = userSockets[msg.to];
-        if (receivers) {
-          for(var i = 0; i < receivers.length; ++i) {
-            receivers[i].emit('message', msg);
+        if (db.IEDEREEN === msg.to) {
+          io.sockets.emit("message",msg);
+        } else {
+          var receivers = userSockets[msg.to];
+          if (receivers) {
+            for(var i = 0; i < receivers.length; ++i) {
+              receivers[i].emit('message', msg);
+            }
           }
-        }
-        if (msg.to !== msg.from) {
-          socket.emit('message', msg);
+          if (msg.to !== msg.from) {
+            socket.emit('message', msg);
+          }
         }
         updateStats();
       }
