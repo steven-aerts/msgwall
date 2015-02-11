@@ -41,7 +41,6 @@ app.configure('development', function(){
 app.all('/login', login.index);
 app.get('/logout', login.logout);
 app.get('/', routes.index);
-app.get('/wall', require('./routes/wall').index);
 
 server.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

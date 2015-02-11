@@ -39,7 +39,7 @@ PORT=80 npm start
 Hoe gebruiken
 -------------
 Voor gebruikers: http://127.0.0.1:3003/ (127.0.0.1 moet natuurlijk het ip-adres van laptop zijn)
-Enkel de wall zien (om te projecteren): http://127.0.0.1:3003/wall
+Voor de muur zelf had ik een apparte gebruiker "de muur" genaamd die je kan gebruiken om te projecteren.
 
 Tips:
 -----
