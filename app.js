@@ -11,7 +11,7 @@ var express = require('express')
   , path = require('path')
   , app = express()
   , server = http.createServer(app)
-  , connect = require('express/node_modules/connect')
+  , connect = require('connect')
   , sessionStore = new connect.middleware.session.MemoryStore
   , cookieParser = express.cookieParser('fout secret here');
 
